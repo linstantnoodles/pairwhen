@@ -7,6 +7,7 @@
                 background-color: #F5F5F5;
                 color: #333;
                 line-height: 1.5;
+                font-size: 115%;
             }
 
             main {
@@ -24,15 +25,23 @@
                 min-width: 400px;
             }
 
+            .appointment ol {
+                border: 1px solid;
+            }
+
             li > label {
                 flex: 1 0 200px;
+                margin-top: 15px;
             }
 
             input[type="checkbox"] {
+                width: 50px;
+                height: 50px;
             }
 
             .form-control {
                 display: flex;
+                margin-bottom: 15px;
             }
 
             form span {
@@ -71,7 +80,6 @@
 
         </style>
     </head>
-
     <body>
         <main>
             <div class="appointment">
@@ -89,6 +97,14 @@
                             <input type="checkbox" name="subscribe" id="april_22_wed">
                         </li>
                         <li>
+                            <label for="april_25_wed">
+                                <span class="date-available">April 22 Wed</span>
+                                <span class="comma">, </span>
+                                <span class="time-range-available">10:30AM to 11:00AM</span>
+                            </label>
+                            <input type="checkbox" name="subscribe" id="april_25_wed">
+                        </li>
+                        <li>
                             <label for="april_23_wed">
                                 <span class="date-available">September 23 Wed</span>
                                 <span class="comma">, </span>
@@ -96,18 +112,24 @@
                             </label>
                             <input type="checkbox" name="subscribe" id="april_23_wed">
                         </li>
+                        <li>
+                            <label for="april_24_wed">
+                                <span class="date-available">October 21 Fri</span>
+                                <span class="comma">, </span>
+                                <span class="time-range-available">12:30PM to 12:30PM</span>
+                            </label>
+                            <input type="checkbox" name="subscribe" id="april_24_wed">
+                        </li>
                     </ol>
-
-
                     <div class="form-control">
-                        <label for="name">Name</label>
+                        <label for="name">Name: </label>
                         <input type="text" id="name" required>
                     </div>
                     <div class="form-control">
-                        <label for="email">Email</label>
+                        <label for="email">Email: </label>
                         <input type="email" id="email" required>
                     </div>
-                    <button type="submit" name="submit">Submit</button>
+                    <button type="submit">Submit Preferences</button>
                 </form>
             </div>
         </main>
