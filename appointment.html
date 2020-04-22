@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+    <head>
+        <title>Your Fantastic Title</title>
+        <style type="text/css">
+            body {
+                font-family: "Noto Sans", "Trebuchet MS", "HelveticaNeue", "Helvetica", "Arial", sans-serif;
+                background-color: #F5F5F5;
+                color: #333;
+                line-height: 1.5;
+            }
+
+            main {
+                display: flex;
+                justify-content: center;
+            }
+
+            form li {
+               display: flex;
+
+            }
+
+            .appointment {
+                max-width: 600px;
+                min-width: 400px;
+            }
+
+            li > label {
+                flex: 1 0 200px;
+            }
+
+            input[type="checkbox"] {
+            }
+
+            .form-control {
+                display: flex;
+            }
+
+            form span {
+            }
+
+            form span.comma {
+                display: inline-block;
+            }
+
+            .form-control label {
+                flex: 1 0 60px;
+                max-width: 60px;
+            }
+
+            .form-control input {
+                width: 200px;
+            }
+
+            @media screen and (min-width: 56em)
+            body {
+                font-size: 112.5%;
+            }
+
+            @media screen and (min-width: 43em)
+            body {
+                font-size: 100%;
+            }
+
+            button {
+                display: block;
+                padding: 0.4em 0.7em;
+                border-radius: 5px;
+                margin-left: auto;
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <main>
+            <div class="appointment">
+                <h1>Alan's available times</h1>
+                <p>Check the ones that work for you.</p>
+                <p>All times displayed in: America/New York -04:00 GMT</p>
+                <form>
+                    <ol>
+                        <li>
+                            <label for="april_22_wed">
+                                <span class="date-available">April 22 Wed</span>
+                                <span class="comma">, </span>
+                                <span class="time-range-available">10:30AM to 11:00AM</span>
+                            </label>
+                            <input type="checkbox" name="subscribe" id="april_22_wed">
+                        </li>
+                        <li>
+                            <label for="april_23_wed">
+                                <span class="date-available">September 23 Wed</span>
+                                <span class="comma">, </span>
+                                <span class="time-range-available">1:30PM to 2:30PM</span>
+                            </label>
+                            <input type="checkbox" name="subscribe" id="april_23_wed">
+                        </li>
+                    </ol>
+
+
+                    <div class="form-control">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-control">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <button type="submit" name="submit">Submit</button>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>

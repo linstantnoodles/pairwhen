@@ -3,37 +3,31 @@
         <title>Your Fantastic Title</title>
     </head>
     <body>
-        <header>
-            <h1>Header</h1>
-        </header>
-        <nav>
-        </nav>
         <main>
-            <div class="available-slot">
-                <div class="date-block">
-                    <span class="date-block_month">April</span>
-                    <span class="date-block_day">22</span>
-                    <span class="date-block_day-name">Wed</span>
-                </div>
-                <div class="available-slot_time">
-                    <span class="available-slot_meeting-time">9:30 AM</span>
-                    <span>to</span>
-                    <span class="available-slot_meeting-time">10:00 AM</span>
-                </div>
-            </div>
-            <div class="available-slot">
-                <div class="date-block">
-                    <span class="date-block_month">April</span>
-                    <span class="date-block_day">23</span>
-                    <span class="date-block_day-name">Wed</span>
-                </div>
-                <div class="available-slot_time">
-                    <span class="available-slot_meeting-time">9:30 AM</span>
-                    <span>to</span>
-                    <span class="available-slot_meeting-time">10:00 AM</span>
-                </div>
-            </div>
+            <p id="password-desc">These are the times Alan is available. Please check the ones that work for you.</p>
+            <form>
+                <ol>
+                    <li>
+                        <label for="april_22_wed">
+                            April 22 Wed, 10:30AM to 11:00AM
+                        </label>
+                        <input type="checkbox" name="subscribe" id="april_22_wed">
+                    </li>
+                    <li>
+                        <label for="april_23_wed">
+                            September 23 Wed, 1:30PM to 2:30PM
+                        </label>
+                        <input type="checkbox" name="subscribe" id="april_23_wed">
+                    </li>
+                </ol>
+                <label for="name">Enter your name</label>
+                <input type="text" id="name" required>
 
+                <label for="email">Enter your email</label>
+                <input type="email" id="email" required>
+
+                <input type="submit" name="submit" value="Submit">
+            </form>
         </main>
     </body>
 </html>
