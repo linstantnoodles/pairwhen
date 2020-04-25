@@ -1,6 +1,6 @@
 <!DOCTYPE html>
     <head>
-        <title>Your Fantastic Title</title>
+        <title>Booker</title>
         <style type="text/css">
             body {
                 font-family: "Noto Sans", "Trebuchet MS", "HelveticaNeue", "Helvetica", "Arial", sans-serif;
@@ -9,17 +9,41 @@
                 line-height: 1.5;
                 font-size: 115%;
             }
-
+            nav {
+                display: flex;
+            }
             .navbar {
                 display: flex;
                 justify-content: flex-end;
                 border-bottom: solid 1px;
             }
 
+            .logo {
+  margin: 0;
+  align-self: left;
+}
 
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+
+            footer {
+                flex: 0 0 auto;
+                height: 100px;
+            }
             main {
+                height: 500px;
                 display: flex;
                 justify-content: center;
+                flex: 1 0 auto;
+            }
+
+            header {
+                height: 80px;
+                flex: 0 0 auto;
             }
 
         .one {
@@ -41,6 +65,7 @@
     <body>
             <header>
                 <nav>
+                    <h1 class="logo"><a href="#">Brand</a></h1>
                     <ul class="navbar" id="menubar1" role="menubar" aria-label="Text Formatting" >
                         <li class="crumb one"><a href="bikes">howto</a></li>
                         <li class="crumb two"><a href="bikes/bmx">login</a></li>
@@ -72,5 +97,16 @@
                     <button type="submit">Book now</button>
                 </div>
             </main>
+            <footer>
+                Problems or questions?  Contact &lt;<a href="mailto:support@booker.in">support@booker.in</a>&gt;.
+                <br><hr style="border-top:1px dotted #aaa;">
+                    <a href="/tos/">terms of service</a> ‧
+                    <a href="/privacy/">privacy</a> ‧
+                    <a href="/about/">about</a> ‧
+                    <a href="http://blog.booker.in">blog</a> ‧
+                    <a href="/faq/">FAQ</a> ‧
+                    <a href="/resources/">resources</a> ‧
+                    <a href="/security/">security</a>
+            </footer>
     </body>
 </html>
