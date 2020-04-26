@@ -1,13 +1,17 @@
+-e git+git@github.com:linstantnoodles/booker.git@4b106ba0a60c361bf2fcd55c9993042311194143#egg=app
 attrs==19.3.0
 click==7.1.1
+dnspython==1.16.0
 Flask==1.1.2
 importlib-metadata==1.6.0
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 more-itertools==8.2.0
+mysql-connector-python==8.0.19
 packaging==20.3
 pluggy==0.13.1
+protobuf==3.6.1
 py==1.8.1
 pyparsing==2.4.7
 pytest==5.4.1
