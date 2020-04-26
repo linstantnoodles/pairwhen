@@ -1,7 +1,7 @@
 import os
 import tempfile
 import pytest
-from app import main
+from main import app
 
 @pytest.fixture
 def client():
