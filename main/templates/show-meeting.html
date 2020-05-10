@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container show-meeting">
+    <h1>Pairing schedule information</h1>
+    <p>All times timezone: <span id="timezone"></span></p>
+    <p>Click to copy link to clipboard</p>
+    <input type="text" id="link" value="{{ invite_url }}" />
+    <button id="copy-button" data-copytarget="#link">copy</button>
+    <form id="form" action="/meeting/{{ meeting_id }}" method="POST">
+        <ol id="curr-times">
+            {% for item in time_info.values() %}
+                <li>
+                    <div>
+                      <span class="date-available">{{ item.date }}</span>
+                      <span class="comma">&nbsp;at&nbsp;</span>
+                      <span class="time-range-available">{{ item.time_start }} to {{ item.time_end }}</span>
+                    </div>
+                    {% if item["confirmations"]|length > 0 %}
+                        <ol>
+                        {% for confirmation in item["confirmations"] %}
+                        <span>Confirmed by {{ confirmation.guest_email }}</span>
+                            <!--{% if confirmation.host_accepted %}
+                                <li>
+                                    <span>{{ confirmation.guest_email }}</span>
+                                    <input type="checkbox" id="scales" value="{{ confirmation.id }}" name="confirmation" checked="checked" disabled>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <span>{{ confirmation.guest_email }}</span>
+                                    <input type="checkbox" id="scales" value="{{ confirmation.id }}" name="confirmation">
+                                </li>
+                            {% endif %}-->
+                        {% endfor %}
+                        </ol>
+                    {% else %}
+                        <span>No responses yet</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+        <!--<button type="submit">Save</button>-->
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      let tzElement = document.getElementById("timezone");
+      tzElement.innerHTML = timezone;
+
+         document.body.addEventListener('click', copy, true);
+        // event handler
+        function copy(e) {
+            // find target element
+            var
+              t = e.target,
+              c = t.dataset.copytarget,
+              inp = (c ? document.querySelector(c) : null);
+
+            // is element selectable?
+            if (inp && inp.select) {
+
+              // select text
+              inp.select();
+
+              try {
+                // copy text
+                document.execCommand('copy');
+                inp.blur();
+
+                // copied animation
+                t.classList.add('copied');
+                setTimeout(function() { t.classList.remove('copied'); }, 1500);
+              }
+              catch (err) {
+                alert('please press Ctrl/Cmd+C to copy');
+              }
+
+            }
+        }
+    </script>
+{% endblock %}

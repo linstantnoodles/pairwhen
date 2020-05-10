@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container signup">
+  {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+  {% endfor %}
+  <h1>Signup</h1>
+  <form method="post">
+    <div>
+        <label for="full_name">Preferred Name</label>
+        <input type="text" name="name" id="full_name" value="{{ name }}" required>
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value="{{ email }}" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+    </div>
+    <input type="hidden" name="timezone" id="timezone_value"/>
+    <button class="form-button" type="submit">Signup</button>
+  </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/moment-min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/moment-timezone.js') }}"></script>
+    <script type="text/javascript">
+        const timezone = moment.tz.guess();
+        let tzValueElement = document.getElementById("timezone_value");
+        tzValueElement.value = timezone;
+    </script>
+{% endblock %}

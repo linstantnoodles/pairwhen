@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container login">
+  {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+  {% endfor %}
+  <h1>Login</h1>
+  <form method="post">
+    <div>
+        <label for="email">Email</label>
+        <input name="email" id="email" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+    </div>
+    <button class="form-button" type="submit">Login</button>
+  </form>
+</div>
+{% endblock %}

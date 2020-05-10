@@ -1,0 +1,327 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container new-meeting">
+    {% for message in get_flashed_messages() %}
+      <div class="flash alert-danger">{{ message }}</div>
+    {% endfor %}
+    <h1>Schedule a new pairing session</h1>
+    <p>All times are displayed in your timezone: <span id="timezone"></span></p>
+    <form id="form" action="/meeting/new" method="POST">
+        <div>
+            <label for="meeting_name">Session name (optional)</label>
+            <input id="meeting_name" type="text" name="meeting_name" placeholder="e.g. hacking stuff">
+        </div>
+        <div class="new-entry">
+            <label for="date-available">
+               Add available times
+            </label>
+            <select id="date-available" name="select">
+                {% for dt in curr_date_list %}
+                    <option value="{{ dt.strftime("%Y-%m-%d") }}">{{ dt.strftime("%b %d, %Y (%a)") }}</option>
+                {% endfor %}
+            </select>
+            <select id="time-start-available" data-preselected-value="{{ preselected_time.strftime("%I:%M%p") }}" name="select">
+                <option value="12:00AM">12:00AM</option>
+                <option value="12:15AM">12:15AM</option>
+                <option value="12:30AM">12:30AM</option>
+                <option value="12:45AM">12:45AM</option>
+                <option value="01:00AM">01:00AM</option>
+                <option value="01:15AM">01:15AM</option>
+                <option value="01:30AM">01:30AM</option>
+                <option value="01:45AM">01:45AM</option>
+                <option value="02:00AM">02:00AM</option>
+                <option value="02:15AM">02:15AM</option>
+                <option value="02:30AM">02:30AM</option>
+                <option value="02:45AM">02:45AM</option>
+                <option value="03:00AM">03:00AM</option>
+                <option value="03:15AM">03:15AM</option>
+                <option value="03:30AM">03:30AM</option>
+                <option value="03:45AM">03:45AM</option>
+                <option value="04:00AM">04:00AM</option>
+                <option value="04:15AM">04:15AM</option>
+                <option value="04:30AM">04:30AM</option>
+                <option value="04:45AM">04:45AM</option>
+                <option value="05:00AM">05:00AM</option>
+                <option value="05:15AM">05:15AM</option>
+                <option value="05:30AM">05:30AM</option>
+                <option value="05:45AM">05:45AM</option>
+                <option value="06:00AM">06:00AM</option>
+                <option value="06:15AM">06:15AM</option>
+                <option value="06:30AM">06:30AM</option>
+                <option value="06:45AM">06:45AM</option>
+                <option value="07:00AM">07:00AM</option>
+                <option value="07:15AM">07:15AM</option>
+                <option value="07:30AM">07:30AM</option>
+                <option value="07:45AM">07:45AM</option>
+                <option value="08:00AM">08:00AM</option>
+                <option value="08:15AM">08:15AM</option>
+                <option value="08:30AM">08:30AM</option>
+                <option value="08:45AM">08:45AM</option>
+                <option value="09:00AM">09:00AM</option>
+                <option value="09:15AM">09:15AM</option>
+                <option value="09:30AM">09:30AM</option>
+                <option value="09:45AM">09:45AM</option>
+                <option value="10:00AM">10:00AM</option>
+                <option value="10:15AM">10:15AM</option>
+                <option value="10:30AM">10:30AM</option>
+                <option value="10:45AM">10:45AM</option>
+                <option value="11:00AM">11:00AM</option>
+                <option value="11:15AM">11:15AM</option>
+                <option value="11:30AM">11:30AM</option>
+                <option value="11:45AM">11:45AM</option>
+                <option value="12:00PM">12:00PM</option>
+                <option value="12:15PM">12:15PM</option>
+                <option value="12:30PM">12:30PM</option>
+                <option value="12:45PM">12:45PM</option>
+                <option value="01:00PM">01:00PM</option>
+                <option value="01:15PM">01:15PM</option>
+                <option value="01:30PM">01:30PM</option>
+                <option value="01:45PM">01:45PM</option>
+                <option value="02:00PM">02:00PM</option>
+                <option value="02:15PM">02:15PM</option>
+                <option value="02:30PM">02:30PM</option>
+                <option value="02:45PM">02:45PM</option>
+                <option value="03:00PM">03:00PM</option>
+                <option value="03:15PM">03:15PM</option>
+                <option value="03:30PM">03:30PM</option>
+                <option value="03:45PM">03:45PM</option>
+                <option value="04:00PM">04:00PM</option>
+                <option value="04:15PM">04:15PM</option>
+                <option value="04:30PM">04:30PM</option>
+                <option value="04:45PM">04:45PM</option>
+                <option value="05:00PM">05:00PM</option>
+                <option value="05:15PM">05:15PM</option>
+                <option value="05:30PM">05:30PM</option>
+                <option value="05:45PM">05:45PM</option>
+                <option value="06:00PM">06:00PM</option>
+                <option value="06:15PM">06:15PM</option>
+                <option value="06:30PM">06:30PM</option>
+                <option value="06:45PM">06:45PM</option>
+                <option value="07:00PM">07:00PM</option>
+                <option value="07:15PM">07:15PM</option>
+                <option value="07:30PM">07:30PM</option>
+                <option value="07:45PM">07:45PM</option>
+                <option value="08:00PM">08:00PM</option>
+                <option value="08:15PM">08:15PM</option>
+                <option value="08:30PM">08:30PM</option>
+                <option value="08:45PM">08:45PM</option>
+                <option value="09:00PM">09:00PM</option>
+                <option value="09:15PM">09:15PM</option>
+                <option value="09:30PM">09:30PM</option>
+                <option value="09:45PM">09:45PM</option>
+                <option value="10:00PM">10:00PM</option>
+                <option value="10:15PM">10:15PM</option>
+                <option value="10:30PM">10:30PM</option>
+                <option value="10:45PM">10:45PM</option>
+                <option value="11:00PM">11:00PM</option>
+                <option value="11:15PM">11:15PM</option>
+                <option value="11:30PM">11:30PM</option>
+                <option value="11:45PM">11:45PM</option>
+            </select>
+            <span> to </span>
+            <select id="time-end-available" name="select">
+                <option value="12:00AM">12:00AM</option>
+                <option value="12:15AM">12:15AM</option>
+                <option value="12:30AM">12:30AM</option>
+                <option value="12:45AM">12:45AM</option>
+                <option value="01:00AM">01:00AM</option>
+                <option value="01:15AM">01:15AM</option>
+                <option value="01:30AM">01:30AM</option>
+                <option value="01:45AM">01:45AM</option>
+                <option value="02:00AM">02:00AM</option>
+                <option value="02:15AM">02:15AM</option>
+                <option value="02:30AM">02:30AM</option>
+                <option value="02:45AM">02:45AM</option>
+                <option value="03:00AM">03:00AM</option>
+                <option value="03:15AM">03:15AM</option>
+                <option value="03:30AM">03:30AM</option>
+                <option value="03:45AM">03:45AM</option>
+                <option value="04:00AM">04:00AM</option>
+                <option value="04:15AM">04:15AM</option>
+                <option value="04:30AM">04:30AM</option>
+                <option value="04:45AM">04:45AM</option>
+                <option value="05:00AM">05:00AM</option>
+                <option value="05:15AM">05:15AM</option>
+                <option value="05:30AM">05:30AM</option>
+                <option value="05:45AM">05:45AM</option>
+                <option value="06:00AM">06:00AM</option>
+                <option value="06:15AM">06:15AM</option>
+                <option value="06:30AM">06:30AM</option>
+                <option value="06:45AM">06:45AM</option>
+                <option value="07:00AM">07:00AM</option>
+                <option value="07:15AM">07:15AM</option>
+                <option value="07:30AM">07:30AM</option>
+                <option value="07:45AM">07:45AM</option>
+                <option value="08:00AM">08:00AM</option>
+                <option value="08:15AM">08:15AM</option>
+                <option value="08:30AM">08:30AM</option>
+                <option value="08:45AM">08:45AM</option>
+                <option value="09:00AM">09:00AM</option>
+                <option value="09:15AM">09:15AM</option>
+                <option value="09:30AM">09:30AM</option>
+                <option value="09:45AM">09:45AM</option>
+                <option value="10:00AM">10:00AM</option>
+                <option value="10:15AM">10:15AM</option>
+                <option value="10:30AM">10:30AM</option>
+                <option value="10:45AM">10:45AM</option>
+                <option value="11:00AM">11:00AM</option>
+                <option value="11:15AM">11:15AM</option>
+                <option value="11:30AM">11:30AM</option>
+                <option value="11:45AM">11:45AM</option>
+                <option value="12:00PM">12:00PM</option>
+                <option value="12:15PM">12:15PM</option>
+                <option value="12:30PM">12:30PM</option>
+                <option value="12:45PM">12:45PM</option>
+                <option value="01:00PM">01:00PM</option>
+                <option value="01:15PM">01:15PM</option>
+                <option value="01:30PM">01:30PM</option>
+                <option value="01:45PM">01:45PM</option>
+                <option value="02:00PM">02:00PM</option>
+                <option value="02:15PM">02:15PM</option>
+                <option value="02:30PM">02:30PM</option>
+                <option value="02:45PM">02:45PM</option>
+                <option value="03:00PM">03:00PM</option>
+                <option value="03:15PM">03:15PM</option>
+                <option value="03:30PM">03:30PM</option>
+                <option value="03:45PM">03:45PM</option>
+                <option value="04:00PM">04:00PM</option>
+                <option value="04:15PM">04:15PM</option>
+                <option value="04:30PM">04:30PM</option>
+                <option value="04:45PM">04:45PM</option>
+                <option value="05:00PM">05:00PM</option>
+                <option value="05:15PM">05:15PM</option>
+                <option value="05:30PM">05:30PM</option>
+                <option value="05:45PM">05:45PM</option>
+                <option value="06:00PM">06:00PM</option>
+                <option value="06:15PM">06:15PM</option>
+                <option value="06:30PM">06:30PM</option>
+                <option value="06:45PM">06:45PM</option>
+                <option value="07:00PM">07:00PM</option>
+                <option value="07:15PM">07:15PM</option>
+                <option value="07:30PM">07:30PM</option>
+                <option value="07:45PM">07:45PM</option>
+                <option value="08:00PM">08:00PM</option>
+                <option value="08:15PM">08:15PM</option>
+                <option value="08:30PM">08:30PM</option>
+                <option value="08:45PM">08:45PM</option>
+                <option value="09:00PM">09:00PM</option>
+                <option value="09:15PM">09:15PM</option>
+                <option value="09:30PM">09:30PM</option>
+                <option value="09:45PM">09:45PM</option>
+                <option value="10:00PM">10:00PM</option>
+                <option value="10:15PM">10:15PM</option>
+                <option value="10:30PM">10:30PM</option>
+                <option value="10:45PM">10:45PM</option>
+                <option value="11:00PM">11:00PM</option>
+                <option value="11:15PM">11:15PM</option>
+                <option value="11:30PM">11:30PM</option>
+                <option value="11:45PM">11:45PM</option>
+            </select>
+            <input id="time_input_data" name="time_input_data" type="hidden"/>
+            <button id="add-time">Add</button>
+        </div>
+        <hr>
+        <div>
+            <ol id="curr-times">
+            </ol>
+        </div>
+        <button id="form-submit">Submit</button>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript">
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    let tzElement = document.getElementById("timezone");
+    tzElement.innerHTML = timezone;
+    let addElement = document.getElementById("add-time");
+    let currTimesEl = document.getElementById("curr-times");
+    let timeStore = [];
+    let time_id = (() => {
+        let cid = 0;
+        return () => {
+            cid += 1
+            return cid;
+        }
+    })();
+
+    function getTimeData() {
+        let tid = time_id();
+        let dateAvailableEl = document.getElementById("date-available");
+        let timeStartAvailableEl = document.getElementById("time-start-available");
+        let timeEndAvailableEl = document.getElementById("time-end-available");
+        return {
+            id: tid,
+            date_available: dateAvailableEl.value,
+            date_available_text: dateAvailableEl.options[dateAvailableEl.selectedIndex].text,
+            time_start_available: timeStartAvailableEl.value,
+            time_end_available: timeEndAvailableEl.value
+        };
+    }
+
+    function itemHtmlEl(data) {
+        let itemHtml
+        = '<li data-time-id=":timeId">'
+        +    '<div>'
+        +    '<span class="date-available">:dateAvailable</span>'
+        +    '<span class="comma">, </span>'
+        +    '<span class="time-range-available">:timeStartAvailable to :timeEndAvailable</span>'
+        +    '</div>'
+        +    '<button type="button" class="delete-time">Delete</button>'
+        + '</li>'
+        itemHtml = itemHtml.replace(':dateAvailable', data.date_available_text);
+        itemHtml = itemHtml.replace(':timeStartAvailable', data.time_start_available);
+        itemHtml = itemHtml.replace(':timeEndAvailable', data.time_end_available);
+        itemHtml = itemHtml.replace(':timeId', data.id);
+
+        let template = document.createElement('template');
+        itemHtml = itemHtml.trim(); // Never return a text node of whitespace as the result
+        template.innerHTML = itemHtml;
+        return template.content.firstChild;
+    }
+
+    addElement.addEventListener('click', (event) => {
+        event.preventDefault();
+        let data = getTimeData();
+        timeStore.push(data);
+        currTimesEl.appendChild(itemHtmlEl(data));
+    });
+
+    const timeStartEl = document.getElementById('time-start-available');
+    const timeEndEl = document.getElementById('time-end-available');
+    timeStartEl.addEventListener('change', (event) => {
+        timeEndEl.selectedIndex = (event.target.selectedIndex + 4);
+    });
+
+    let submitElement =  document.getElementById("form-submit");
+    let formEl = document.getElementById("form");
+    submitElement.addEventListener('click', (event) => {
+        event.preventDefault();
+        let timeInputData = document.getElementById("time_input_data");
+        timeInputData.value = JSON.stringify(timeStore);
+        formEl.submit();
+    });
+
+    currTimesEl.addEventListener("click", (event) => {
+        var element = event.target;
+        if (element.tagName == 'BUTTON' && element.classList.contains("delete-time")){
+            event.preventDefault();
+            let parentListEl = element.parentElement;
+            let tId = parentListEl.getAttribute('data-time-id');
+            timeStore = timeStore.filter(t => t.id != tId);
+            parentListEl.remove();
+        }
+    });
+
+    let preselectedTimeStartValue = timeStartEl.getAttribute('data-preselected-value');
+    let optionList = timeStartEl.options;
+    for (let i = 0; i < optionList.length; i++) {
+        let opt = optionList[i];
+        if (opt.value === preselectedTimeStartValue) {
+            timeStartEl.selectedIndex = i;
+            timeEndEl.selectedIndex = i + 4;
+            break;
+        }
+    }
+</script>
+{% endblock %}

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
     <head>
         <title>Your Fantastic Title</title>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/moment-min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/moment-timezone.js') }}"></script>
         <style type="text/css">
             body {
                 font-family: "Noto Sans", "Trebuchet MS", "HelveticaNeue", "Helvetica", "Arial", sans-serif;
@@ -77,28 +79,14 @@
                 margin-left: auto;
             }*/
 
-
         </style>
     </head>
     <body>
         <main>
             <div class="appointment">
-                <h1>Alan's available times</h1>
-                <p>Check the ones that work for you.</p>
-                <p>All times displayed in: America/New York -04:00 GMT</p>
-                <form>
-                    <div class="new-entry">
-                       <h4>1:1 meeting</h4>
-                       <div>5 Options</div>
-                       <div>1-on-1</div>
-                    </div>
-                    <button type="submit">Submit Schedule</button>
-                </form>
+                <h1>Meeting Confirmed!</h1>
+                <p>Thanks! We'll let your host know that your session is confirmed for {{ date }} between {{ start_time }} and {{ end_time }} at your timezone {{ timezone }}.</p>
             </div>
         </main>
-        <script type="text/javascript">
-            // On add, add new time into a sorted list and re-render the list.
-            // Could also splice it into list
-        </script>
     </body>
 </html>

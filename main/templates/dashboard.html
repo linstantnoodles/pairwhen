@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container dashboard">
+    <h1>Dashboard</h1>
+    <form action="/meeting/new">
+      <button type="submit">Schedule Pairing</button>
+    </form>
+    <h2>Created sessions</h2>
+    {% if not meetings %}
+    <p>None created yet</p>
+    {% endif %}
+    <ul>
+    {% for meeting in meetings %}
+        <li>
+            <a href="{{ meeting.url }}">{{ meeting.name }}</a>
+            <span>created on {{ meeting.created_at_date }} at {{ meeting.created_at_time }}</span>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

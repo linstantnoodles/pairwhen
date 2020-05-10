@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container invitation">
+    <h1>Invitation to pair program</h1>
+    <p>These are {{ host_name}}'s currently available times. Pick one that works for you.</p>
+    <p>All times are displayed in your timezone: <span id="timezone"></span></p>
+    <div>
+    <form id="form" action="/invitation/{{ token }}" method="POST" data-attr-times="{{ time_info }}">
+        <input type="hidden" name="timezone" id="timezone_value"/>
+        {% if not num_times %}
+            <p>Uh oh, no times are available! Please let your pair know.</p>
+        {% endif %}
+        <ol id="curr-times">
+        </ol>
+        {% if num_times %}
+        <div>
+            <label for="email">Email (so that your pair can reach you)</label>
+            <input id="email" type="email" name="email" required/>
+            <label for="name">Name (optional)</label>
+            <input id="name" type="text" name="name"/>
+        </div>
+        <br>
+        <button type="submit">Submit</button>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/moment-min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/moment-timezone.js') }}"></script>
+        <script type="text/javascript">
+            const timezone = moment.tz.guess();
+            let tzElement = document.getElementById("timezone");
+            let tzValueElement = document.getElementById("timezone_value"); // send to server
+            tzElement.innerHTML = timezone;
+            tzValueElement.value = timezone;
+
+            function radioItemHtmlEl(data) {
+                let itemHtml
+                = '<li>'
+                +    '<div>'
+                +    '<span class="date-available">:dateAvailable</span>'
+                +    '<span class="comma">&nbsp;at&nbsp;</span>'
+                +    '<span class="time-range-available">:timeStartAvailable to :timeEndAvailable</span>'
+                +    '</div>'
+                +    '<input type="radio" value=":timeId" name="available_time">'
+                + '</li>'
+                let local_date = moment(data.time_start_utc).tz(timezone).format("MMM DD, YYYY");
+                let local_time_start = moment(data.time_start_utc).tz(timezone).format("hh:mmA");
+                let local_time_end = moment(data.time_end_utc).tz(timezone).format("hh:mmA");
+                itemHtml = itemHtml.replace(':dateAvailable', local_date);
+                itemHtml = itemHtml.replace(':timeStartAvailable', local_time_start);
+                itemHtml = itemHtml.replace(':timeEndAvailable', local_time_end);
+                itemHtml = itemHtml.replace(':timeId', data.id);
+                let template = document.createElement('template');
+                itemHtml = itemHtml.trim(); // Never return a text node of whitespace as the result
+                console.log(itemHtml);
+                template.innerHTML = itemHtml;
+                return template.content.firstChild;
+            }
+
+
+            function itemHtmlEl(data) {
+                let itemHtml
+                = '<li>'
+                +    '<span class="date-available">:dateAvailable</span>'
+                +    '<span class="comma">&nbsp;at&nbsp;</span>'
+                +    '<span class="time-range-available">:timeStartAvailable to :timeEndAvailable</span>'
+                +    '<input type="checkbox" value=":timeId" name="available_time">'
+                + '</li>'
+                let local_date = moment(data.time_start_utc).tz(timezone).format("MMM DD, YYYY");
+                let local_time_start = moment(data.time_start_utc).tz(timezone).format("hh:mmA");
+                let local_time_end = moment(data.time_end_utc).tz(timezone).format("hh:mmA");
+                itemHtml = itemHtml.replace(':dateAvailable', local_date);
+                itemHtml = itemHtml.replace(':timeStartAvailable', local_time_start);
+                itemHtml = itemHtml.replace(':timeEndAvailable', local_time_end);
+                itemHtml = itemHtml.replace(':timeId', data.id);
+                let template = document.createElement('template');
+                itemHtml = itemHtml.trim(); // Never return a text node of whitespace as the result
+                console.log(itemHtml);
+                template.innerHTML = itemHtml;
+                return template.content.firstChild;
+            }
+
+            let form = document.getElementById("form");
+            let currTimesEl = document.getElementById("curr-times");
+            let timeData = JSON.parse(form.getAttribute("data-attr-times"));
+            timeData.forEach((td) => {
+                currTimesEl.appendChild(radioItemHtmlEl(td));
+            });
+        </script>
+{% endblock %}
