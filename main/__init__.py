@@ -245,13 +245,13 @@ def show_meeting(meeting_id):
 @app.route('/meeting/new', methods=("GET", "POST"))
 @login_required
 def new_meeting():
+    curr_user_timezone = current_user().get("timezone", None)
     if request.method == "POST":
         start = datetime.now()
         meeting_name = request.form.get("meeting_name", "Pair Programming")
         time_range_data = json.loads(request.form["time_input_data"])
         user_id = session["user_id"]
-        time_zone = current_user().get("timezone", None)
-        tz = pytz.timezone(time_zone)
+        tz = pytz.timezone(curr_user_timezone)
         db = get_db()
         token = uuid.uuid4().hex
         error = None
@@ -273,7 +273,7 @@ def new_meeting():
                             to_mysql_datetime_str(tz.localize(time_record[1])),
                             to_mysql_datetime_str(tz.localize(time_record[0]).astimezone(pytz.utc)),
                             to_mysql_datetime_str(tz.localize(time_record[1]).astimezone(pytz.utc)),
-                            time_zone,
+                            curr_user_timezone,
                             meeting_id
                         )
                         for time_record in records
@@ -288,7 +288,7 @@ def new_meeting():
             else:
                 db.commit()
             return redirect(url_for('show_meeting', meeting_id=meeting_id))
-    tz = pytz.timezone('America/New_York')
+    tz = pytz.timezone(curr_user_timezone)
     local_datetime = tz.localize(datetime.now())
     curr_date_list = date_list(local_datetime)
     preselected_time = ceil_dt(local_datetime, timedelta(minutes=15))
