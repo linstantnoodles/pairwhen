@@ -129,8 +129,9 @@ def login():
             session["user_id"] = user["id"]
             return redirect(url_for("dashboard"))
         flash(error)
-    return render_template("login.html", current_user=current_user())
-
+    if current_user():
+        return redirect(url_for("dashboard"))
+    return render_template("login.html")
 
 @bp.route("/logout")
 def logout():

@@ -297,7 +297,7 @@ def new_meeting():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('about.html', current_user=current_user())
 
 connect_to_database()
 app.register_blueprint(auth.bp)
