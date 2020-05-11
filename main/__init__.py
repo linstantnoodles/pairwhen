@@ -46,7 +46,7 @@ def send_simple_message(text=None, html=None, to=None, subject="Meeting confirme
         "{}/messages".format(sandbox_url),
      auth=("api", os.getenv("MAILGUN_KEY")),
      data={
-       "from": "Excited User <catwind7@gmail>",
+       "from": "Admin <catwind7@gmail>",
        "to": [to],
        "subject": subject,
        "text": text,
@@ -165,8 +165,9 @@ def meeting_invitation(token):
             guest_tz = pytz.timezone(guest_timezone)
             start_dt_utc = time_info["start_datetime_utc"]
             end_dt_utc = time_info["end_datetime_utc"]
-            local_start_dt = guest_tz.localize(start_dt_utc)
-            local_end_dt = guest_tz.localize(end_dt_utc)
+
+            local_start_dt = pytz.utc.localize(start_dt_utc).astimezone(guest_tz)
+            local_end_dt = pytz.utc.localize(end_dt_utc).astimezone(guest_tz)
             return render_template(
                 "meeting-confirmed.html",
                 date = local_start_dt.strftime("%b %d, %Y"),
