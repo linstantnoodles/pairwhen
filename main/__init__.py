@@ -182,7 +182,7 @@ def meeting_invitation(token):
         if not meeting_info:
             return render_template("404.html")
         host_name = meeting_info["host_name"]
-        query = "SELECT * FROM available_times a LEFT JOIN confirmations c ON a.id = c.time_id WHERE meeting_id = %s GROUP BY a.id HAVING COUNT(c.id) = 0"
+        query = "SELECT a.*, COUNT(c.id) as confcount FROM available_times a LEFT JOIN confirmations c ON a.id = c.time_id WHERE meeting_id = %s GROUP BY a.id HAVING COUNT(c.id) = 0"
         cursor.execute(query, (meeting_info["meeting_id"],))
         time_range_info = cursor.fetchall()
         time_range_info = list(utc_times_to_recipient(time_range_info))
