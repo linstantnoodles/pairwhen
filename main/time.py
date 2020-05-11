@@ -71,13 +71,15 @@ def utc_times_to_recipient(data):
     for d in data:
         start_dt = d["start_datetime"]
         end_dt = d["end_datetime"]
+        start_dt_utc = d["start_datetime_utc"]
+        end_dt_utc = d["end_datetime_utc"]
         yield {
             "id": d["id"],
             "date": start_dt.strftime("%b %d, %Y"),
             "time_start": start_dt.strftime("%I:%M%p"),
             "time_end": end_dt.strftime("%I:%M%p"),
-            "time_start_utc": start_dt.isoformat(),
-            "time_end_utc": end_dt.isoformat(),
+            "time_start_utc": start_dt_utc.isoformat(),
+            "time_end_utc": end_dt_utc.isoformat(),
             "timezone": d["timezone"]
         }
 

@@ -289,10 +289,10 @@ def new_meeting():
                 db.commit()
             return redirect(url_for('show_meeting', meeting_id=meeting_id))
     tz = pytz.timezone(curr_user_timezone)
-    local_datetime = tz.localize(datetime.now())
+    local_datetime = datetime.now(tz)
     curr_date_list = date_list(local_datetime)
     preselected_time = ceil_dt(local_datetime, timedelta(minutes=15))
-    return render_template('new-meeting.html', current_user=current_user(), preselected_time=preselected_time, curr_date_list=curr_date_list)
+    return render_template('new-meeting.html', timezone=curr_user_timezone, current_user=current_user(), preselected_time=preselected_time, curr_date_list=curr_date_list)
 
 @app.route('/about')
 def about():

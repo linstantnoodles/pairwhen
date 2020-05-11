@@ -44,10 +44,14 @@
                 +    '<span class="time-range-available">:timeStartAvailable to :timeEndAvailable</span>'
                 +    '</div>'
                 +    '<input type="radio" value=":timeId" name="available_time">'
-                + '</li>'
-                let local_date = moment(data.time_start_utc).tz(timezone).format("MMM DD, YYYY");
-                let local_time_start = moment(data.time_start_utc).tz(timezone).format("hh:mmA");
-                let local_time_end = moment(data.time_end_utc).tz(timezone).format("hh:mmA");
+                + '</li>';
+
+                let local_date = moment.utc(data.time_start_utc).tz(timezone).format("MMM DD, YYYY");
+                let local_time_start = moment.utc(data.time_start_utc).tz(timezone).format("hh:mmA");
+                let local_time_end = moment.utc(data.time_end_utc).tz(timezone).format("hh:mmA");
+                console.log(data.time_start_utc);
+                console.log(timezone);
+                console.log(local_date);
                 itemHtml = itemHtml.replace(':dateAvailable', local_date);
                 itemHtml = itemHtml.replace(':timeStartAvailable', local_time_start);
                 itemHtml = itemHtml.replace(':timeEndAvailable', local_time_end);

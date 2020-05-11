@@ -5,7 +5,7 @@
       <div class="flash alert-danger">{{ message }}</div>
     {% endfor %}
     <h1>Schedule a new pairing session</h1>
-    <p>All times are displayed in your timezone: <span id="timezone"></span></p>
+    <p>All times are displayed in your timezone: <span id="timezone">{{ timezone }}</span></p>
     <form id="form" action="/meeting/new" method="POST">
         <div>
             <label for="meeting_name">Session name (optional)</label>
@@ -231,9 +231,6 @@
 {% endblock %}
 {% block scripts %}
 <script type="text/javascript">
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    let tzElement = document.getElementById("timezone");
-    tzElement.innerHTML = timezone;
     let addElement = document.getElementById("add-time");
     let currTimesEl = document.getElementById("curr-times");
     let timeStore = [];

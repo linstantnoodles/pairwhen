@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container show-meeting">
     <h1>Pairing schedule information</h1>
-    <p>All times timezone: <span id="timezone"></span></p>
+    <p>All times displayed in your timezone: <span id="timezone">{{ current_user.get("timezone") }}</span></p>
     <p>Click to copy link to clipboard</p>
     <input type="text" id="link" value="{{ invite_url }}" />
     <button id="copy-button" data-copytarget="#link">copy</button>
@@ -45,10 +45,6 @@
 
 {% block scripts %}
     <script type="text/javascript">
-      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      let tzElement = document.getElementById("timezone");
-      tzElement.innerHTML = timezone;
-
          document.body.addEventListener('click', copy, true);
         // event handler
         function copy(e) {
