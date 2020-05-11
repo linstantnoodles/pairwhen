@@ -151,7 +151,7 @@ def meeting_invitation(token):
             )
             response = send_simple_message(
                 subject="{} just confirmed a meeting! [pairwhen]".format(guest_email),
-                to='catwind7@gmail.com', # should be host
+                to=host_email,
                 text=email_template_txt,
                 html=email_template
             )
