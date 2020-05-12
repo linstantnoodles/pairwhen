@@ -41,7 +41,7 @@ def notify_admin(text=None, html=None, subject="Alert!"):
 
 def send_simple_message(text=None, html=None, to=None, subject="Meeting confirmed!"):
     sandbox_url = "https://api.mailgun.net/v3/sandboxc28e2296a38d4429bca1442750ee645b.mailgun.org"
-    prod_url = "https://api.mailgun.net/v3/mg.pairwhen.com/messages"
+    prod_url = "https://api.mailgun.net/v3/mg.pairwhen.com"
     url = prod_url
     if os.getenv("FLASK_ENV") == "development":
         url = sandbox_url
