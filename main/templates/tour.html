@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container tour">
+    <h1>Pairwhen Tour</h1>
+
+    <h2>Creating a new pairing session with your availability</h2>
+    <p>Lets assume your name is <strong>Wanda Alvarez</strong> and you want to find a time that works for both you and your pair. You'll start by creating a new pair session with the times that work for you. All times are automatically displayed in your local timezone.</p>
+    <img class="tour-img" src="{{ url_for('static', filename='images/tour/schedule-new-with-times.png') }}"/>
+
+    <h2>Pairwhen generates an invite link for your guest / pair </h2>
+    <img class="tour-img" src="{{ url_for('static', filename='images/tour/invitation-link.png') }}"/>
+
+    <h2>The page your pair (lets call her Grace) sees after clicking the link</h2>
+    <p>This page is where Grace can select the time that works for her. All times are displayed in Grace's local timezone automatically.</p>
+    <img class="tour-img" src="{{ url_for('static', filename='images/tour/guest-invite.png') }}"/>
+
+    <h2>Confirmation Email</h2>
+    <p>Once Grace confirms a time, you'll get an email with the time she picked. That's it!</p>
+    <img class="tour-img" src="{{ url_for('static', filename='images/tour/host-email.png') }}"/>
+    <br/>
+    <br/>
+    {% if current_user %}
+      <form action="/meeting/new">
+        <button type="submit">Schedule Pairing</button>
+      </form>
+    {% else %}
+      <form action="/signup">
+        <button type="submit">Schedule Pairing</button>
+      </form>
+    {% endif %}
+{% endblock %}

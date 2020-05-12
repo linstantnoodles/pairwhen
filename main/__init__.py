@@ -100,10 +100,43 @@ def meeting_invitation(token):
     if request.method == "POST":
         guest_email = request.form.get("email")
         guest_name = request.form.get("name")
+        guest_message = request.form.get("message")
         guest_timezone = request.form.get("timezone")
         time_ids = request.form.getlist("available_time")
+
         if not time_ids:
             return redirect(url_for("meeting_invitation", token=token))
+
+        if time_ids[0] == "none_of_the_above":
+            host_info = {}
+            with get_db().cursor() as cursor:
+                query = "SELECT u.email FROM meetings m INNER JOIN users u ON m.user_id = u.id WHERE m.token=%s";
+                cursor.execute(query, (token,))
+                host_info = cursor.fetchone()
+            host_email = host_info["email"]
+            email_template = render_template(
+                "email/message.html",
+                guest_email=guest_email,
+                guest_name=guest_name,
+                guest_message=guest_message
+            )
+            email_template_txt = render_template(
+                "email/message.txt",
+                guest_email=guest_email,
+                guest_name=guest_name,
+                guest_message=guest_message
+            )
+            response = send_simple_message(
+                subject="{} was unable to find a time! [pairwhen]".format(guest_email),
+                to=host_email,
+                text=email_template_txt,
+                html=email_template
+            )
+            return render_template(
+                "message-sent.html",
+                guest_message=guest_message
+            )
+
         db = get_db()
         with db.cursor() as cursor:
             records = [
@@ -298,6 +331,10 @@ def new_meeting():
 @app.route('/about')
 def about():
     return render_template('about.html', current_user=current_user())
+
+@app.route('/tour')
+def tour():
+    return render_template('tour.html', current_user=current_user())
 
 connect_to_database()
 app.register_blueprint(auth.bp)

@@ -8,12 +8,12 @@
     <p>All times are displayed in your timezone: <span id="timezone">{{ timezone }}</span></p>
     <form id="form" action="/meeting/new" method="POST">
         <div>
-            <label for="meeting_name">Session name (optional)</label>
+            <label for="meeting_name">Session name (optional):</label>
             <input id="meeting_name" type="text" name="meeting_name" placeholder="e.g. hacking stuff">
         </div>
         <div class="new-entry">
             <label for="date-available">
-               Add available times
+               Add your available times:
             </label>
             <select id="date-available" name="select">
                 {% for dt in curr_date_list %}
@@ -222,6 +222,7 @@
         </div>
         <hr>
         <div>
+            <label for="curr-times">List of times to send to your pair:</label for="curr-times">
             <ol id="curr-times">
             </ol>
         </div>

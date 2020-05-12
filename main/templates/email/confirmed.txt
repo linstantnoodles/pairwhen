@@ -1,6 +1,6 @@
 {% if guest_name %}
   {{ guest_name }} just confirmed that they will meet with you on {{ date }} between {{ start_time }} and {{ end_time }} at your timezone {{ timezone }}.
-  <p>If you need to make any changes to this schedule, {{ guest_name}}'s email is: {{ guest_email }}.
+  If you need to make any changes to this schedule, {{ guest_name}}'s email is: {{ guest_email }}.
 {% else %}
     {{ guest_email }} just confirmed that they will meet with you on {{ date }} between {{ start_time }} and {{ end_time }} at your timezone {{ timezone }}.
 {% endif %}

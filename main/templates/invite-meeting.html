@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container invitation">
-    <h1>Invitation to pair program</h1>
-    <p>These are {{ host_name}}'s currently available times. Pick one that works for you.</p>
-    <p>All times are displayed in your timezone: <span id="timezone"></span></p>
+    <h1>Invitation to Pair Program</h1>
+    <p>These are {{ host_name}}'s currently available times. Tick the option that works for you to share with them:</p>
     <div>
     <form id="form" action="/invitation/{{ token }}" method="POST" data-attr-times="{{ time_info }}">
         <input type="hidden" name="timezone" id="timezone_value"/>
@@ -13,11 +12,14 @@
         <ol id="curr-times">
         </ol>
         {% if num_times %}
+        <p class="tz-info-invite">(All times are displayed in your timezone: <span id="timezone"></span>)</p>
         <div>
-            <label for="email">Email (so that your pair can reach you)</label>
+            <label for="email">Email</label>
             <input id="email" type="email" name="email" required/>
             <label for="name">Name (optional)</label>
             <input id="name" type="text" name="name"/>
+            <label for="message">Message (optional)</label>
+            <textarea id="message" type="text" name="message"></textarea>
         </div>
         <br>
         <button type="submit">Submit</button>
@@ -49,9 +51,6 @@
                 let local_date = moment.utc(data.time_start_utc).tz(timezone).format("MMM DD, YYYY");
                 let local_time_start = moment.utc(data.time_start_utc).tz(timezone).format("hh:mmA");
                 let local_time_end = moment.utc(data.time_end_utc).tz(timezone).format("hh:mmA");
-                console.log(data.time_start_utc);
-                console.log(timezone);
-                console.log(local_date);
                 itemHtml = itemHtml.replace(':dateAvailable', local_date);
                 itemHtml = itemHtml.replace(':timeStartAvailable', local_time_start);
                 itemHtml = itemHtml.replace(':timeEndAvailable', local_time_end);
@@ -62,6 +61,21 @@
                 template.innerHTML = itemHtml;
                 return template.content.firstChild;
             }
+
+            function noneItemHtmlEl(data) {
+                let itemHtml
+                = '<li>'
+                +    '<div>'
+                +    '<span class="date-available">None of the above</span>'
+                +    '</div>'
+                +    '<input type="radio" value="none_of_the_above" name="available_time">'
+                + '</li>';
+                let template = document.createElement('template');
+                itemHtml = itemHtml.trim(); // Never return a text node of whitespace as the result
+                template.innerHTML = itemHtml;
+                return template.content.firstChild;
+            }
+
 
 
             function itemHtmlEl(data) {
@@ -92,5 +106,6 @@
             timeData.forEach((td) => {
                 currTimesEl.appendChild(radioItemHtmlEl(td));
             });
+            currTimesEl.appendChild(noneItemHtmlEl());
         </script>
 {% endblock %}

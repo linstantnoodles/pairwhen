@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container show-meeting">
-    <h1>Pairing schedule information</h1>
-    <p>All times displayed in your timezone: <span id="timezone">{{ current_user.get("timezone") }}</span></p>
-    <p>Click to copy link to clipboard</p>
+    <h1>Pairing Session Information</h1>
+    <h3>Click to copy link to clipboard and share with your pair:</h3>
     <input type="text" id="link" value="{{ invite_url }}" />
     <button id="copy-button" data-copytarget="#link">copy</button>
+    <br/>
+    <br/>
+    <h3>Your suggested available times:</h3>
+    <p class="tz-info">(All times displayed in your timezone: <span id="timezone">{{ current_user.get("timezone") }}</span>)</p>
     <form id="form" action="/meeting/{{ meeting_id }}" method="POST">
         <ol id="curr-times">
             {% for item in time_info.values() %}
@@ -33,7 +36,7 @@
                         {% endfor %}
                         </ol>
                     {% else %}
-                        <span>No responses yet</span>
+                        <span>Not yet confirmed by your pair.</span>
                     {% endif %}
                 </li>
             {% endfor %}

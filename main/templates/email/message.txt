@@ -1,0 +1,13 @@
+{% if guest_name %}
+  {{ guest_name }} could not find a time that works for them.
+  {{ guest_name}}'s email is: {{ guest_email }}.
+  {% if guest_message %}
+    {{ guest_name }}'s message: {{ guest_message }}
+  {% endif %}
+{% else %}
+  {{ guest_email }} could not find a time that works for them.
+  {{ guest_email }}'s email is: {{ guest_email }}.
+  {% if guest_message %}
+    {{ guest_email }}'s message: {{ guest_message }}
+  {% endif %}
+{% endif %}

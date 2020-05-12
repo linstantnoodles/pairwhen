@@ -13,10 +13,34 @@
                 height: 100vh;
             }
 
+
             .alert-danger {
               color: #721c24;
               background-color: #f8d7da;
               border-color: #f5c6cb;
+            }
+
+            .tz-info-invite {
+              margin-top: 0px;
+              padding-top: 0px;
+            }
+
+            label {
+              font-weight: bold;
+            }
+
+            #timezone {
+              font-weight: bold;
+            }
+
+            .call-to-action {
+              display: flex;
+            }
+
+            .call-to-action button.tour-btn {
+              position: relative;
+              left: 10px;
+              top: 3px;
             }
 
             nav {
@@ -124,6 +148,13 @@
             font-size: 115%;
         }
 
+        button.btn-info {
+          background-image: none;
+         background-color: #17a2b8;
+          border-color: #17a2b8;
+            padding: 7px 7px;
+        }
+
         /* Signup */
 
         .container label {
@@ -154,6 +185,14 @@
           width: 75%;
           font-size: 1em;
           padding: 2px 5px 4px;
+          border: 1px solid;
+          border-radius: 2px;
+        }
+
+        .container textarea {
+          width: 76%;
+          font-size: 1em;
+          height: 100px;
           border: 1px solid;
           border-radius: 2px;
         }
@@ -196,21 +235,22 @@
        button.delete-time {
         padding: 4px;
         background-image: none;
-        border-color: #dc3545;
-        background-color: #dc3545;
+        border-color: #6f6d6d;
+        background-color: #6f6d6d;
 
        }
 
        #curr-times {
         padding: 0px;
         list-style: none;
+        margin-bottom: 0px;
        }
 
        #curr-times li {
         display: flex;
         justify-content: start;
-        padding: 5px;
-
+        padding-top: 5px;
+        padding-bottom: 5px;
        }
 
        #curr-times li div {
@@ -235,10 +275,17 @@
 
        /* Meeting show */
 
+       .tz-info {
+        margin: 0px;
+       }
 
+       .show-meeting h2, h3 {
+        margin: 0px;
+       }
       input#link, button#copy-button {
         font-size: 1em;
         padding: 3px 6px;
+        left: -6px;
         margin: 0;
         border: 1px solid #333;
         outline: 0;
@@ -319,6 +366,17 @@
       top: 12px;
       position: relative;
     }
+
+    /* TOUR */
+
+    .tour-img {
+      width: 100%;
+      border: 1px solid #000;
+    }
+
+    div.tour {
+      width: 600px;
+    }
     </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-123752987-5"></script>
@@ -326,7 +384,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'UA-123752987-5');
     </script>
     </head>
@@ -339,13 +396,13 @@
               </div>
               {% if current_user %}
                 <ul class="navbar logged-in" id="menubar1" role="menubar" aria-label="Text Formatting" >
-                    <li class=""><a href="/about">About</a></li>
+                    <li class=""><a href="/tour">Tour</a></li>
                     <li class=""><a href="/dashboard">Dashboard</a></li>
                     <li class=""><a href="/logout">Logout</a></li>
                 </ul>
               {% else %}
                 <ul class="navbar logged-out" id="menubar1" role="menubar" aria-label="Text Formatting" >
-                    <li class=""><a href="/about">About</a></li>
+                    <li class=""><a href="/tour">Tour</a></li>
                     <li class=""><a href="/login">Login</a></li>
                     <li class=""><a href="/signup">Signup</a></li>
                 </ul>

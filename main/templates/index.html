@@ -6,14 +6,19 @@
     <p><b>Step One:</b> Pick your times to send a link to your pair.</p>
     <p><b>Step Two:</b> Once your pair confirms a time that works for them, you'll get an email.</p>
     <p>(Different time zones? Pairwhen will automatically translate).</p>
-    {% if current_user %}
-      <form action="/meeting/new">
-        <button type="submit">Schedule Pairing</button>
+    <div class="call-to-action">
+      {% if current_user %}
+        <form action="/meeting/new">
+          <button type="submit">Schedule Pairing</button>
+        </form>
+      {% else %}
+        <form action="/signup">
+          <button type="submit">Schedule Pairing</button>
+        </form>
+      {% endif %}
+      <form action="/tour">
+        <button class="btn-info tour-btn" type="submit">Take a Tour</button>
       </form>
-    {% else %}
-      <form action="/signup">
-        <button type="submit">Schedule Pairing</button>
-      </form>
-    {% endif %}
+    </div>
 </div>
 {% endblock %}
