@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container settings">
+    <h1>Settings</h1>
+    <table>
+      <tr>
+        <td>
+          <strong>Email</strong>
+        </td>
+        <td>
+          {{ current_user["email"] }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Default Timezone</strong>
+        </td>
+        <td>
+          {{ current_user["timezone"] }}
+        </td>
+      </tr>
+    </table>
+    <br/>
+    <br/>
+    <form action="/settings/edit">
+      <button class="btn-info tour-btn" type="submit">Edit settings</button>
+    </form>
+</div>
+{% endblock %}

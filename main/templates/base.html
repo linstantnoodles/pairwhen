@@ -61,7 +61,7 @@
             }
 
             .navbar.logged-in {
-              width: 250px;
+              width: 400px;
             }
 
             .navbar.logged-out {
@@ -69,7 +69,7 @@
             }
 
             footer .navbar {
-              width: 250px;
+              width: 150px;
             }
 
             footer {
@@ -80,8 +80,13 @@
                 list-style: none;
             }
 
-            .navbar a {
+            .navbar a, a:visited, a:link {
+                color: #000;
                 text-decoration: none;
+            }
+
+            .navbar a:hover {
+              text-decoration: underline;
             }
 
             .logo {
@@ -402,6 +407,7 @@
                 <ul class="navbar logged-in" id="menubar1" role="menubar" aria-label="Text Formatting" >
                     <li class=""><a href="/tour">Tour</a></li>
                     <li class=""><a href="/dashboard">Dashboard</a></li>
+                    <li class=""><a href="/settings">Settings</a></li>
                     <li class=""><a href="/logout">Logout</a></li>
                 </ul>
               {% else %}
@@ -420,6 +426,10 @@
           <div>
               Problems or questions? Contact &lt;<a href="mailto:support@pairwhen.com">support@pairwhen.com</a>&gt;
           </div>
+          <!--<ul class="navbar" id="menubar1" role="menubar" aria-label="Text Formatting">
+              <li class=""><a href="/about">About</a></li>
+              <li class=""><a href="/blog">Blog</a></li>
+          </ul>-->
       </footer>
       {% block scripts %}{% endblock %}
     </body>

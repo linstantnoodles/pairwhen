@@ -195,10 +195,10 @@ def meeting_invitation(token):
                     html=email_template
                 )
                 return "Sorry! We were unable to notify the host at {}, we're looking into the issue right away.".format(host_email)
+
             guest_tz = pytz.timezone(guest_timezone)
             start_dt_utc = time_info["start_datetime_utc"]
             end_dt_utc = time_info["end_datetime_utc"]
-
             local_start_dt = pytz.utc.localize(start_dt_utc).astimezone(guest_tz)
             local_end_dt = pytz.utc.localize(end_dt_utc).astimezone(guest_tz)
             return render_template(
@@ -215,7 +215,7 @@ def meeting_invitation(token):
         if not meeting_info:
             return render_template("404.html")
         host_name = meeting_info["host_name"]
-        query = "SELECT a.*, COUNT(c.id) as confcount FROM available_times a LEFT JOIN confirmations c ON a.id = c.time_id WHERE meeting_id = %s GROUP BY a.id HAVING COUNT(c.id) = 0"
+        query = "SELECT a.*, COUNT(c.id) as confcount FROM available_times a LEFT JOIN confirmations c ON a.id = c.time_id WHERE meeting_id = %s GROUP BY a.id HAVING COUNT(c.id) = 0 ORDER BY a.start_datetime_utc"
         cursor.execute(query, (meeting_info["meeting_id"],))
         time_range_info = cursor.fetchall()
         time_range_info = list(utc_times_to_recipient(time_range_info))
@@ -243,7 +243,7 @@ def show_meeting(meeting_id):
         meeting_info = cursor.fetchone()
         if not meeting_info:
             return render_template("404.html")
-        query = "SELECT a.id, a.start_datetime, a.end_datetime, c.guest_email, a.timezone host_timezone, c.id cid, c.timezone guest_timezone, c.host_accepted FROM available_times a LEFT JOIN confirmations c on a.id = c.time_id WHERE a.meeting_id = %s";
+        query = "SELECT a.id, a.start_datetime, a.end_datetime, c.guest_email, a.timezone host_timezone, c.id cid, c.timezone guest_timezone, c.host_accepted FROM available_times a LEFT JOIN confirmations c on a.id = c.time_id WHERE a.meeting_id = %s ORDER BY a.start_datetime";
         cursor.execute(query, (meeting_id,))
         time_range_info = cursor.fetchall()
         confirmations = {}
@@ -328,6 +328,17 @@ def new_meeting():
     preselected_time = ceil_dt(local_datetime, timedelta(minutes=15))
     return render_template('new-meeting.html', timezone=curr_user_timezone, current_user=current_user(), preselected_time=preselected_time, curr_date_list=curr_date_list)
 
+@app.route('/settings')
+@login_required
+def settings():
+    return render_template('settings.html', current_user=current_user())
+
+@app.route('/settings/edit')
+@login_required
+def settings_edit():
+    return render_template('edit-settings.html', current_user=current_user())
+
+
 @app.route('/about')
 def about():
     return render_template('about.html', current_user=current_user())
@@ -335,6 +346,10 @@ def about():
 @app.route('/tour')
 def tour():
     return render_template('tour.html', current_user=current_user())
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html', current_user=current_user())
 
 connect_to_database()
 app.register_blueprint(auth.bp)
