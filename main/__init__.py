@@ -32,9 +32,9 @@ def notify_admin(text=None, html=None, subject="Alert!"):
         "{}/messages".format(sandbox_url),
      auth=("api", os.getenv("MAILGUN_KEY")),
      data={
-       "from": "Admin <catwind7@gmail>",
+       "from": "Admin <catwind7@gmail.com>",
        "to": ["catwind7@gmail.com"],
-       "subject": "Alert!",
+       "subject": subject,
        "text": text,
        "html": html
     })
@@ -42,11 +42,14 @@ def notify_admin(text=None, html=None, subject="Alert!"):
 def send_simple_message(text=None, html=None, to=None, subject="Meeting confirmed!"):
     sandbox_url = "https://api.mailgun.net/v3/sandboxc28e2296a38d4429bca1442750ee645b.mailgun.org"
     prod_url = "https://api.mailgun.net/v3/mg.pairwhen.com/messages"
+    url = prod_url
+    if os.getenv("FLASK_ENV") == "development":
+        url = sandbox_url
     return requests.post(
-        "{}/messages".format(sandbox_url),
+        "{}/messages".format(url),
      auth=("api", os.getenv("MAILGUN_KEY")),
      data={
-       "from": "Admin <catwind7@gmail>",
+       "from": "support <support@pairwhen.com>",
        "to": [to],
        "subject": subject,
        "text": text,

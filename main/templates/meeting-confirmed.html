@@ -2,6 +2,11 @@
 {% block content %}
 <div class="appointment">
     <h1>Meeting Confirmed!</h1>
-    <p>Thanks! We'll let your host know that your session is confirmed for {{ date }} between {{ start_time }} and {{ end_time }} at your timezone {{ timezone }}.</p>
+    <p>Thanks! We'll let your host know that your session is confirmed for <strong>{{ date }}</strong> between <strong>{{ start_time }}</strong> and <strong>{{ end_time }}</strong> (<strong>{{ timezone }}</strong>).</p>
+
+    <p>Want to create your own sessions?</p>
+    <form action="/signup">
+        <button type="submit">Schedule Pairing</button>
+    </form>
 </div>
 {% endblock %}
