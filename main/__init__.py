@@ -354,6 +354,10 @@ def tour():
 def blog():
     return render_template('blog.html', current_user=current_user())
 
+@app.route('/calendar')
+def calendar():
+    return render_template('calendar.html', current_user=current_user())
+
 connect_to_database()
 app.register_blueprint(auth.bp)
 
