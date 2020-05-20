@@ -354,9 +354,150 @@ def tour():
 def blog():
     return render_template('blog.html', current_user=current_user())
 
-@app.route('/calendar')
-def calendar():
-    return render_template('calendar.html', current_user=current_user())
+@app.route('/calendar/<token>', methods=("GET", "POST"))
+def calendar(token):
+    if token != "linalan":
+        return "Sorry, that calendar does not exist. Please reach out to <support@pairwhen.com>"
+    if request.method == "POST":
+        guest_email = request.form.get("email")
+        guest_name = request.form.get("name")
+        guest_message = request.form.get("message")
+        guest_timezone = request.form.get("timezone")
+        time_ids = request.form.getlist("available_time")
+
+    repeat_availability = {
+      "sunday": [
+        "09:00AM",
+        "10:00AM",
+        "10:15AM",
+        "10:30AM",
+        "11:00AM",
+        "11:15AM",
+        "11:30AM",
+        "01:00PM",
+        "01:30PM",
+        "02:00PM",
+        "02:30PM",
+        "03:00PM",
+        "03:30PM",
+        "04:00PM",
+        "04:30PM",
+        "05:00PM",
+        "05:30PM",
+        "07:00PM"
+      ],
+      "monday": [
+        "09:00AM",
+        "10:00AM",
+        "10:15AM",
+        "10:30AM",
+        "11:00AM",
+        "11:15AM",
+        "11:30AM",
+        "01:00PM",
+        "01:30PM",
+        "02:00PM",
+        "02:30PM",
+        "03:00PM",
+        "03:30PM",
+        "04:00PM",
+        "04:30PM",
+        "05:00PM",
+        "05:30PM",
+        "07:00PM"
+      ],
+      "tuesday": [
+        "09:00AM",
+        "10:00AM",
+        "10:15AM",
+        "10:30AM",
+        "11:00AM",
+        "11:15AM",
+        "11:30AM",
+        "01:00PM",
+        "01:30PM",
+        "02:00PM",
+        "02:30PM",
+        "03:00PM",
+        "03:30PM",
+        "04:00PM",
+        "04:30PM",
+        "05:00PM",
+        "05:30PM",
+        "07:00PM"
+      ],
+      "wednesday": [
+        "09:00AM",
+        "10:00AM",
+        "03:30PM",
+        "04:00PM",
+        "04:30PM",
+        "05:00PM",
+        "05:30PM",
+        "07:00PM"
+      ],
+      "thursday": [
+        "09:00AM",
+        "10:00AM",
+        "10:15AM",
+        "10:30AM",
+        "11:00AM",
+        "11:15AM",
+        "11:30AM",
+        "01:00PM",
+        "01:30PM",
+        "02:00PM",
+        "02:30PM",
+        "03:00PM",
+        "03:30PM",
+        "04:00PM",
+        "04:30PM",
+        "05:00PM",
+        "05:30PM",
+        "07:00PM"
+     ],
+      "friday": [
+        "09:00AM",
+        "10:00AM",
+        "10:15AM",
+        "10:30AM",
+        "11:00AM",
+        "11:15AM",
+        "11:30AM",
+        "01:00PM",
+        "01:30PM",
+        "02:00PM",
+        "02:30PM",
+        "03:00PM",
+        "03:30PM",
+        "04:00PM",
+        "04:30PM",
+        "05:00PM",
+        "05:30PM",
+        "07:00PM"
+     ],
+      "saturday": [
+        "09:00AM",
+        "10:00AM",
+        "10:15AM",
+        "10:30AM",
+        "11:00AM",
+        "11:15AM",
+        "11:30AM",
+        "01:00PM",
+        "01:30PM",
+        "02:00PM",
+        "02:30PM",
+        "03:00PM",
+        "03:30PM",
+        "04:00PM",
+        "04:30PM",
+        "05:00PM",
+        "05:30PM",
+        "07:00PM"
+      ]
+    }
+    return render_template('calendar.html', current_user=current_user(), availability=repeat_availability)
 
 connect_to_database()
 app.register_blueprint(auth.bp)

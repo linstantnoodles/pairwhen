@@ -21,6 +21,7 @@ var DatePicker = function (inputNode, buttonNode, dialogNode) {
   this.messageNode = dialogNode.querySelector('.message');
 
   this.dateInput = new CalendarButtonInput(this.inputNode, this.buttonNode, this);
+  this.callback = null;
 
   this.MonthYearNode = this.dialogNode.querySelector('.monthYear');
 
@@ -35,6 +36,7 @@ var DatePicker = function (inputNode, buttonNode, dialogNode) {
   this.tbodyNode = this.dialogNode.querySelector('table.dates tbody');
 
   this.lastRowNode = null;
+  this.activeNode = null;
 
   this.days = [];
 
@@ -60,15 +62,15 @@ var DatePicker = function (inputNode, buttonNode, dialogNode) {
 
 };
 
-DatePicker.prototype.init = function () {
-
+DatePicker.prototype.init = function (callback) {
+  this.callback = callback;
   this.dateInput.init();
 
-  this.okButtonNode.addEventListener('click', this.handleOkButton.bind(this));
-  this.okButtonNode.addEventListener('keydown', this.handleOkButton.bind(this));
+  // this.okButtonNode.addEventListener('click', this.handleOkButton.bind(this));
+  // this.okButtonNode.addEventListener('keydown', this.handleOkButton.bind(this));
 
-  this.cancelButtonNode.addEventListener('click', this.handleCancelButton.bind(this));
-  this.cancelButtonNode.addEventListener('keydown', this.handleCancelButton.bind(this));
+  // this.cancelButtonNode.addEventListener('click', this.handleCancelButton.bind(this));
+  // this.cancelButtonNode.addEventListener('keydown', this.handleCancelButton.bind(this));
 
   this.prevMonthNode.addEventListener('click', this.handlePreviousMonthButton.bind(this));
   this.nextMonthNode.addEventListener('click', this.handleNextMonthButton.bind(this));
@@ -81,8 +83,8 @@ DatePicker.prototype.init = function () {
 
   this.nextYearNode.addEventListener('keydown', this.handleNextYearButton.bind(this));
 
-  document.body.addEventListener('mousedown', this.handleBackgroundMouseDown.bind(this), true);
-  document.body.addEventListener('mouseup', this.handleBackgroundMouseUp.bind(this), true);
+  //document.body.addEventListener('mousedown', this.handleBackgroundMouseDown.bind(this), true);
+  //document.body.addEventListener('mouseup', this.handleBackgroundMouseUp.bind(this), true);
 
   // Create Grid of Dates
 
@@ -153,9 +155,13 @@ DatePicker.prototype.showLastRow = function () {
   this.lastRowNode.style.visibility = 'visible';
 };
 
-DatePicker.prototype.setSelectedDay = function(date) {
-  console.log(date);
-  date.domNode.setAttribute('tabindex', '0');
+DatePicker.prototype.setActiveDay = function(node) {
+  if (this.activeNode) {
+    this.activeNode.setAttribute('tabindex', '-1');
+  }
+  this.activeNode = node;
+  this.callback(node);
+  node.setAttribute('tabindex', '0');
 };
 
 DatePicker.prototype.setFocusDay = function (flag) {
@@ -219,7 +225,7 @@ DatePicker.prototype.isOpen = function () {
 };
 
 DatePicker.prototype.hide = function () {
-
+  return;
   this.setMessage('');
 
   this.dialogNode.style.display = 'none';

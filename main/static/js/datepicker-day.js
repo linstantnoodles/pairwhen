@@ -166,9 +166,7 @@ DatePickerDay.prototype.handleMouseDown = function (event) {
   else {
     this.datepicker.setTextboxDate(this.day);
     // this.datepicker.hide();
-    // this.datepicker.setSelectedDay(this.day);
-    this.domNode.setAttribute('tabindex', '0');
-
+    this.datepicker.setActiveDay(this.domNode);
   }
 
   event.stopPropagation();
@@ -177,5 +175,5 @@ DatePickerDay.prototype.handleMouseDown = function (event) {
 };
 
 DatePickerDay.prototype.handleFocus = function () {
-  this.datepicker.setMessage(this.datepicker.messageCursorKeys);
+  // this.datepicker.setMessage(this.datepicker.messageCursorKeys);
 };

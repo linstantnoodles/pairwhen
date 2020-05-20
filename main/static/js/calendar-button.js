@@ -115,18 +115,3 @@ CalendarButtonInput.prototype.handleFocus = function () {
 
 // Initialize menu button date picker
 
-window.addEventListener('load' , function () {
-
-  var datePickers = document.querySelectorAll('.datepicker');
-
-  datePickers.forEach(function (dp) {
-    var inputNode   = dp.querySelector('input');
-    var buttonNode  = dp.querySelector('button');
-    var dialogNode  = dp.querySelector('[role=dialog]');
-
-    var datePicker = new DatePicker(inputNode, buttonNode, dialogNode);
-    datePicker.init();
-  });
-
-});
-
