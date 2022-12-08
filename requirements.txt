@@ -1,6 +1,6 @@
 -e git+git@github.com:linstantnoodles/booker.git@e3fe9966ed0d5211c3903c58bc934b23b0489712#egg=app
 attrs==19.3.0
-certifi==2020.4.5.1
+certifi==2022.12.7
 chardet==3.0.4
 click==7.1.1
 dnspython==1.16.0
